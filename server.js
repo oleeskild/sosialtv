@@ -34,18 +34,18 @@ var server = http.createServer(router);
 var io = socketio.listen(server);
 
 //Connect to database
-var collection = db.get("messages");
+var message_db = db.get("messages");
 
 router.use(express.static(path.resolve(__dirname, 'client')));
 var messages = [];
 var sockets = [];
 
-collection.find({},{}, function(err, data){
+//Push all the messages already in database to messages array
+message_db.find({},{}, function(err, data){
   if(err){
-    console.log(err);
+    console.log("Database error: "+err);
     return;
   }
-  //console.log(data.name);
   data.forEach(function(msg){
     messages.push(msg);
   });
@@ -79,6 +79,7 @@ io.on('connection', function (socket) {
 
         broadcast('message', data);
         messages.push(data);
+        message_db.insert({name: name, text: text})
       });
     });
 

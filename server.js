@@ -21,7 +21,6 @@ var monk = require("monk");
 //Store the password to the mongodb in a seperate file to make it easier to push to github
 //without compromising the password.
 var dbPass = fs.readFileSync('./pass/pass.txt','utf8');
-
 var db = monk('node:'+dbPass+'@ds055680.mongolab.com:55680/chat_test');
 
 //
@@ -35,19 +34,24 @@ var server = http.createServer(router);
 var io = socketio.listen(server);
 
 //Connect to database
-var coll = db.get("messages");
-coll.find({},{}, function(err, data){
-  if(err){
-    console.log(err);
-    return;
-  }
-  console.log(data);
-});
-
+var collection = db.get("messages");
 
 router.use(express.static(path.resolve(__dirname, 'client')));
 var messages = [];
 var sockets = [];
+
+collection.find({},{}, function(err, data){
+  if(err){
+    console.log(err);
+    return;
+  }
+  //console.log(data.name);
+  data.forEach(function(msg){
+    messages.push(msg);
+  });
+  
+  
+});
 
 io.on('connection', function (socket) {
     messages.forEach(function (data) {

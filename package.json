@@ -9,6 +9,10 @@
     "async": "~0.2.8",
     "express": "~3.2.4",
     "mongojs": "^0.17.0",
+    "monk": "^0.9.1",
     "socket.io": "~0.9.14"
+  },
+  "devDependencies": {
+    "fs": "0.0.2"
   }
 }

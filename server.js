@@ -10,6 +10,20 @@ var async = require('async');
 var socketio = require('socket.io');
 var express = require('express');
 
+//Only used in development to read the password from a file
+var fs = require("fs");
+
+//Setting up a connection to the mongoDB
+var mongojs = require("mongojs");
+var monk = require("monk");
+
+
+//Store the password to the mongodb in a seperate file to make it easier to push to github
+//without compromising the password.
+var dbPass = fs.readFileSync('./pass/pass.txt','utf8');
+
+var db = monk('node:'+dbPass+'@ds055680.mongolab.com:55680/chat_test');
+
 //
 // ## SimpleServer `SimpleServer(obj)`
 //
@@ -19,6 +33,17 @@ var express = require('express');
 var router = express();
 var server = http.createServer(router);
 var io = socketio.listen(server);
+
+//Connect to database
+var coll = db.get("messages");
+coll.find({},{}, function(err, data){
+  if(err){
+    console.log(err);
+    return;
+  }
+  console.log(data);
+});
+
 
 router.use(express.static(path.resolve(__dirname, 'client')));
 var messages = [];

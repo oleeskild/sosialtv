@@ -1,7 +1,7 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" ng-app>
   <head>
-    <title>Chat Example</title>
+    <title>Sosial.TV chat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
@@ -50,17 +50,17 @@
       <div class="navbar navbar-fixed-top navbar-inverse">
         <div class="navbar-inner">
           <div class="pull-right">
-            <a href="https://c9.io" class="brand">Cloud9 IDE</a>
+            <a href="http://sosial.tv/" class="brand">Sosial.TV</a>
           </div>
         </div>
       </div>
       <div class="page-header">
-        <h1>Chat Example</h1>
+        <h1>Chat</h1>
       </div>
       <div class="row">
         <div class="span3">
           <ul class="nav nav-list well">
-            <li class="nav-header">Local Users</li>
+            <li class="nav-header">Andre (Insert tv navn) interesserte</li>
             <li ng-repeat="user in roster" ng-bind="user">
             </li>
           </ul>
@@ -82,9 +82,9 @@
           </table>
           <div class="row controls">
             <form ng-submit="send()">
-              <div class="span2"><input type="text" class="input-block-level" ng-model="name" ng-change="setName()" placeholder="Your Name"></div>
+              <div class="span2"><input type="text" class="input-block-level" ng-model="name" ng-change="setName()" placeholder="Lag deg et navn"></div>
               <div class="input-append span7">
-                <input type="text" class="span6" ng-model="text" placeholder="Message">
+                <input type="text" class="span6" ng-model="text" placeholder="Hva tenker du om (insert tv navn)">
                 <input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!text">
               </div>
             </form>
